@@ -1,0 +1,7 @@
+export const AUTH_USER = 'auth_user'
+export const UNAUTH_USER = 'unauth_user'
+export const AUTH_ERROR = 'auth_error'
+export const FETCH_MESSAGE = 'fetch_message'
+export const ADD_USER = 'add_user'
+export const FETCH_VENUES = 'fetch_venues'
+export const GET_USERS = 'get_users'
