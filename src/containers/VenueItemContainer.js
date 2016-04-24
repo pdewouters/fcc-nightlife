@@ -7,14 +7,15 @@ class VenueItemContainer extends Component {
     constructor(props) {
         super(props)
         this.handleClick = this.handleClick.bind(this)
-    }
+    }   
     
-    componentDidMount() {
-        
-    }
-    
-    handleClick() {
-        this.props.addUserToVenue(this.props.venueData.venue.id)
+    handleClick(active) {
+        if(active) {
+            this.props.addUserToVenue(this.props.venueData.venue.id)
+        } else {
+            this.props.removeUserFromVenue(this.props.venueData.venue.id)
+        }
+        this.props.fetchAllVenues()
     }
     
     render() {

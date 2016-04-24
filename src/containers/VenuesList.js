@@ -10,7 +10,6 @@ class VenuesList extends Component {
         this.renderVenue = this.renderVenue.bind(this)
     }
     renderVenue(venueData) {
-        // if this venueID is in allVenues, then get the going array
         const venueObj = _.find(this.props.allVenues, {venue: venueData.venue.id})
         const going = venueObj ? venueObj.going : []
         return (

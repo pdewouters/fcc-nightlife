@@ -30,7 +30,7 @@ export function getMessage() {
 }
 
 export function postAddUserToVenue(venueId) {
-    return axios.post(`${ROOT_URL}/${venueId}/adduser`, {}, {
+    return axios.post(`${ROOT_URL}/venue/${venueId}/adduser`, {}, {
         headers: {authorization: localStorage.getItem('token')}
     })
 }
@@ -45,4 +45,10 @@ export function getAllVenues() {
     return axios.get(`${ROOT_URL}/venues/all`, {
         headers: { authorization: localStorage.getItem('token') }
     })
+}
+
+export function postRemoveUserFromVenue(venueId) {
+    return axios.post(`${ROOT_URL}/venue/${venueId}/removeuser`, {}, {
+        headers: {authorization: localStorage.getItem('token')}
+    })    
 }

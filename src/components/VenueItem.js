@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from './Button'
 
 const VenueItem = (props) => {
         const photoObj = props.venueData.venue.featuredPhotos ? props.venueData.venue.featuredPhotos.items[0] : ''
@@ -11,7 +12,7 @@ const VenueItem = (props) => {
                 <div className="media-body">
                     <h4 className="media-heading">{props.venueData.venue.name}</h4>
                     <div>{props.venueData.tips ? props.venueData.tips[0].text : 'no reviews yet'}</div>
-                    <button onClick={props.onHandleClick} type="button" className="btn btn-primary" disabled={props.authenticated ? '' : 'disabled'}>Going</button>
+                    <Button onHandleClick={props.onHandleClick} authenticated={props.authenticated}  />
                     <p>Going: {props.going ? props.going.length : 0}</p>
                 </div>
             </div>   

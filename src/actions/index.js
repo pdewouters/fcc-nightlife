@@ -1,6 +1,25 @@
-import { postSignin, postSignup, getVenues, getMessage, postAddUserToVenue, getUsersForVenue, getAllVenues } from '../helpers/api'
+import {
+    postSignin,
+    postSignup,
+    getVenues,
+    getMessage,
+    postAddUserToVenue,
+    getUsersForVenue,
+    getAllVenues,
+    postRemoveUserFromVenue
+} from '../helpers/api'
 import { browserHistory } from 'react-router'
-import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, FETCH_MESSAGE, ADD_USER, FETCH_VENUES, GET_USERS, FETCH_ALL_VENUES } from './types'
+import {
+    AUTH_USER,
+    AUTH_ERROR,
+    UNAUTH_USER,
+    FETCH_MESSAGE,
+    ADD_USER,
+    FETCH_VENUES,
+    GET_USERS,
+    FETCH_ALL_VENUES,
+    REMOVE_USER
+} from './types'
 
 export function fetchVenues(city) {
     const apiData = getVenues(city)
@@ -94,6 +113,18 @@ export function fetchAllVenues() {
             dispatch({
                 type: FETCH_ALL_VENUES,
                 payload: response.data
+            })
+        })
+    }
+}
+
+export function removeUserFromVenue(venueId) {
+    return function(dispatch) {
+        postRemoveUserFromVenue(venueId)
+        .then(response => {
+            dispatch({
+                type: REMOVE_USER,
+                payload: response.data.message
             })
         })
     }
