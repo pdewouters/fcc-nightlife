@@ -40,3 +40,9 @@ export function getUsersForVenue(venueId) {
         headers: { authorization: localStorage.getItem('token') }        
     })
 }
+
+export function getAllVenues() {
+    return axios.get(`${ROOT_URL}/venues/all`, {
+        headers: { authorization: localStorage.getItem('token') }
+    })
+}

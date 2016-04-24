@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { fetchVenues } from '../actions'
+import * as actions from '../actions'
 
 class SearchBarContainer extends Component {
     constructor(props) {
@@ -21,7 +20,8 @@ class SearchBarContainer extends Component {
         
         // it is a prop thx to mapDispatchToProps bindActionCreators
         // call action creator
-        this.props.fetchVenues(this.state.term)   
+        this.props.fetchVenues(this.state.term)
+        this.props.fetchAllVenues()
         this.setState({term: ''})
     }
     
@@ -42,9 +42,5 @@ class SearchBarContainer extends Component {
     }
 }
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ fetchVenues }, dispatch)
-}
-
 // null bc not interested in state
-export default connect(null, mapDispatchToProps)(SearchBarContainer)
+export default connect(null, actions)(SearchBarContainer)

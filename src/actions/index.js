@@ -1,6 +1,6 @@
-import { postSignin, postSignup, getVenues, getMessage, postAddUserToVenue, getUsersForVenue } from '../helpers/api'
+import { postSignin, postSignup, getVenues, getMessage, postAddUserToVenue, getUsersForVenue, getAllVenues } from '../helpers/api'
 import { browserHistory } from 'react-router'
-import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, FETCH_MESSAGE, ADD_USER, FETCH_VENUES, GET_USERS } from './types'
+import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, FETCH_MESSAGE, ADD_USER, FETCH_VENUES, GET_USERS, FETCH_ALL_VENUES } from './types'
 
 export function fetchVenues(city) {
     const apiData = getVenues(city)
@@ -85,4 +85,16 @@ export function fetchUsersForVenue(venueId) {
                 })
             })
     }    
+}
+
+export function fetchAllVenues() {
+    return function(dispatch) {
+        getAllVenues()
+        .then(response => {
+            dispatch({
+                type: FETCH_ALL_VENUES,
+                payload: response.data
+            })
+        })
+    }
 }

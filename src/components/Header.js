@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 
@@ -30,6 +30,10 @@ class Header extends Component {
             </nav>
         )
     }
+}
+
+Header.propTypes = {
+    isAuthenticated: PropTypes.bool.isRequired
 }
 
 function mapStateToProps(state) {

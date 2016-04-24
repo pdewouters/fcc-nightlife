@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { Component, PropTypes } from 'react'
 import { reduxForm } from 'redux-form'
 import * as actions from '../../actions'
 
-class Signin extends React.Component {
+class Signin extends Component {
     handleFormSubmit({ email, password }){
         this.props.signinUser({ email, password })
     }
@@ -36,9 +36,14 @@ class Signin extends React.Component {
     }
 }
 
+Signin.propTypes = {
+    errorMessage: PropTypes.string.isRequired,
+}
+
 function mapStateToProps(state) {
     return { errorMessage: state.auth.error }
 }
+
 export default reduxForm({
     form: 'signin',
     fields: ['email', 'password']
