@@ -36,10 +36,6 @@ class Signin extends Component {
     }
 }
 
-Signin.propTypes = {
-    errorMessage: PropTypes.string.isRequired,
-}
-
 function mapStateToProps(state) {
     return { errorMessage: state.auth.error }
 }

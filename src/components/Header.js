@@ -32,10 +32,6 @@ class Header extends Component {
     }
 }
 
-Header.propTypes = {
-    isAuthenticated: PropTypes.bool.isRequired
-}
-
 function mapStateToProps(state) {
     return { isAuthenticated: state.auth.authenticated }
 }

@@ -18,10 +18,11 @@ class SearchBarContainer extends Component {
     onFormSubmit(event){
         event.preventDefault()
         
-        // it is a prop thx to mapDispatchToProps bindActionCreators
-        // call action creator
         this.props.fetchVenues(this.state.term)
+        
+        // All venues that have attendees from DB
         this.props.fetchAllVenues()
+        
         this.setState({term: ''})
     }
     

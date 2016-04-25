@@ -1,38 +1,18 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import * as actions from '../actions'
 import VenueItem from '../components/VenueItem'
 
 class VenueItemContainer extends Component {
-    constructor(props) {
-        super(props)
-        this.handleClick = this.handleClick.bind(this)
-    }   
-    
-    handleClick(active) {
-        if(active) {
-            this.props.addUserToVenue(this.props.venueData.venue.id)
-        } else {
-            this.props.removeUserFromVenue(this.props.venueData.venue.id)
-        }
-        this.props.fetchAllVenues()
-    }
-    
-    render() {
 
+    render() {
         return (
-            <VenueItem authenticated={this.props.authenticated} venueData={this.props.venueData} venue={this.props.venue} onHandleClick={this.handleClick} going={this.props.going} />
+            <VenueItem authenticated={this.props.authenticated} venueData={this.props.venueData} attendees={this.props.attendees} />
         )
     }
 }
 
 function mapStateToProps(state) {
-    return { authenticated: state.auth.authenticated, venue: state.venue }    
+    return { authenticated: state.auth.authenticated }    
 }
 
-VenueItem.propTypes = {
-    venueData: PropTypes.object.isRequired,
-    venue: PropTypes.object.isRequired    
-}
-
-export default connect(mapStateToProps, actions)(VenueItemContainer)
+export default connect(mapStateToProps)(VenueItemContainer)

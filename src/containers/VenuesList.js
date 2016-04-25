@@ -10,10 +10,14 @@ class VenuesList extends Component {
         this.renderVenue = this.renderVenue.bind(this)
     }
     renderVenue(venueData) {
-        const venueObj = _.find(this.props.allVenues, {venue: venueData.venue.id})
-        const going = venueObj ? venueObj.going : []
+        
+        const venueObj  = _.find(this.props.allVenues, {venue: venueData.venue.id})
+        const attendees = venueObj ? venueObj.going : []
         return (
-            <VenueItemContainer key={venueData.venue.id} venueData={venueData} going={going} />
+            <VenueItemContainer
+            key={venueData.venue.id}
+            venueData={venueData}
+            attendees={attendees} />
         )
     }
     
@@ -31,7 +35,7 @@ class VenuesList extends Component {
 }
 
 function mapStateToProps(state) {
-    return { venues: state.venues, message: state.auth.message, allVenues: state.allVenues }
+    return { venues: state.venues, message: state.auth.message, allVenues: state.allVenues.data }
 }
 
 export default connect(mapStateToProps, actions)(VenuesList)

@@ -36,6 +36,7 @@ export function signinUser({ email, password }) {
             .then(response => {
                 dispatch({ type: AUTH_USER })
                 localStorage.setItem('token', response.data.token)
+                localStorage.setItem('currentuser', response.data.email)
                 browserHistory.push('/')
             })
             .catch(() => {
@@ -53,6 +54,7 @@ export function authError(error) {
 
 export function signoutUser() {
     localStorage.removeItem('token')
+    localStorage.removeItem('currentuser')
     return { type: UNAUTH_USER }
 }
 
@@ -62,6 +64,7 @@ export function signupUser({ email, password }) {
            .then(response => {
                 dispatch({ type: AUTH_USER })
                 localStorage.setItem('token', response.data.token)
+                localStorage.setItem('currentuser', response.data.email)
                 browserHistory.push('/')
             })
             .catch(response => {
@@ -107,14 +110,11 @@ export function fetchUsersForVenue(venueId) {
 }
 
 export function fetchAllVenues() {
-    return function(dispatch) {
-        getAllVenues()
-        .then(response => {
-            dispatch({
-                type: FETCH_ALL_VENUES,
-                payload: response.data
-            })
-        })
+    const apiData = getAllVenues()
+
+    return {
+        type: FETCH_ALL_VENUES,
+        payload: apiData
     }
 }
 
