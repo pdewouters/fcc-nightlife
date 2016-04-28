@@ -4,7 +4,8 @@ import Button from './Button'
 const VenueItem = (props) => {
         const photoObj = props.venueData.venue.featuredPhotos ? props.venueData.venue.featuredPhotos.items[0] : ''
         const photoSrc = photoObj ? `${photoObj.prefix}128x128${photoObj.suffix}` : ''
-        
+        const user = localStorage.getItem('currentuser')
+        const isAttending = props.attendees.indexOf(user) !== -1
         return(
             <div className="media">
                 <a className="media-left" href="#">
@@ -17,7 +18,9 @@ const VenueItem = (props) => {
                     venueId={props.venueData.venue.id}
                     onHandleClick={props.onHandleClick}
                     authenticated={props.authenticated}
-                    attendees={props.attendees}  />
+                    attendees={props.attendees}
+                    initialActive = {isAttending}
+                    />
                     <p>Attendees: {props.attendees ? props.attendees.length : 0}</p>
                 </div>
             </div>   

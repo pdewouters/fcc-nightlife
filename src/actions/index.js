@@ -6,7 +6,8 @@ import {
     postAddUserToVenue,
     getUsersForVenue,
     getAllVenues,
-    postRemoveUserFromVenue
+    postRemoveUserFromVenue,
+    getVenuesAttendees
 } from '../helpers/api'
 import { browserHistory } from 'react-router'
 import {
@@ -18,15 +19,32 @@ import {
     FETCH_VENUES,
     GET_USERS,
     FETCH_ALL_VENUES,
-    REMOVE_USER
+    REMOVE_USER,
+    FETCH_VENUES_ATTENDEES
 } from './types'
 
-export function fetchVenues(city) {
-    const apiData = getVenues(city)
+export const fetchVenues = (city) => {
+    return (dispatch, getState) => {
+        return dispatch({
+            type: FETCH_VENUES,
+            payload: {
+                promise: getVenues(city)
+            }
+        }).then(
+            response => {
+                const venueIds = response.value.data.response.groups[0].items.map((item) => {
+                    return item.venue.id
+                })
+                
+                dispatch(fetchVenuesAttendees(venueIds))
+            }
+        )
+    }
+}
 
+export const fetchVenuesAttendees = (venueIds) => {
     return {
-        type: FETCH_VENUES,
-        payload: apiData
+        type: FETCH_VENUES_ATTENDEES, payload: { promise: getVenuesAttendees(venueIds) }
     }
 }
 
@@ -73,40 +91,21 @@ export function signupUser({ email, password }) {
     }
 }
 
-export function fetchMessage() {
-    return function(dispatch) {
-        getMessage()
-        .then(response => {
-            dispatch({
-                type: FETCH_MESSAGE,
-                payload: response.data.message
-            })
-        })
-    }
-}
-
+// returns new array of users for venue 
 export function addUserToVenue(venueId) {
-    return function(dispatch) {
-        postAddUserToVenue(venueId)
-        .then(response => {
-            dispatch({
-                type: ADD_USER,
-                payload: response.data.message
-            })
-        })
-    }
-}
 
-export function fetchUsersForVenue(venueId) {
-    return function(dispatch) {
-        getUsersForVenue(venueId)
-            .then(response => {
-                dispatch({
-                    type: GET_USERS,
-                    payload: response.data.going
-                })
-            })
-    }    
+    return (dispatch, getState) => {
+        return dispatch({
+            type: ADD_USER,
+            payload: {
+                promise: postAddUserToVenue(venueId)
+            }
+        }).then(
+            response => {
+                dispatch(fetchVenuesAttendees([venueId]))
+            }
+        )
+    }
 }
 
 export function fetchAllVenues() {
@@ -119,13 +118,18 @@ export function fetchAllVenues() {
 }
 
 export function removeUserFromVenue(venueId) {
-    return function(dispatch) {
-        postRemoveUserFromVenue(venueId)
-        .then(response => {
-            dispatch({
-                type: REMOVE_USER,
-                payload: response.data.message
-            })
-        })
+    
+    return (dispatch, getState) => {
+        return dispatch({
+            type: REMOVE_USER,
+            payload: {
+                promise: postRemoveUserFromVenue(venueId)
+            }
+        }).then(
+            response => {
+                dispatch(fetchVenuesAttendees([venueId]))
+            }
+        )
     }
+
 }

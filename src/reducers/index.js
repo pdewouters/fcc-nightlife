@@ -1,16 +1,16 @@
 import { combineReducers } from 'redux';
-import VenuesReducer from './reducer_venues'
 import { reducer as form } from 'redux-form'
 import authReducer from './auth_reducer'
-import venueReducer from './venue_reducer'
-import allVenuesReducer from './allvenues_reducer'
+import userReducer from './user_reducer'
+import attendeesReducer from './attendees_reducer'
+import VenuesReducer from './reducer_venues'
 
 const rootReducer = combineReducers({
-  venues: VenuesReducer,
+  attendees: attendeesReducer,
   form,
   auth: authReducer,
-  venue: venueReducer,
-  allVenues: allVenuesReducer
+  user: userReducer,
+  venues: VenuesReducer
 });
 
 export default rootReducer;

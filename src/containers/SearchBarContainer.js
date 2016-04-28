@@ -20,9 +20,6 @@ class SearchBarContainer extends Component {
         
         this.props.fetchVenues(this.state.term)
         
-        // All venues that have attendees from DB
-        this.props.fetchAllVenues()
-        
         this.setState({term: ''})
     }
     

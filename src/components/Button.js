@@ -1,51 +1,55 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-
 import * as actions from '../actions'
+import classnames from 'classnames'
 
 class Button extends Component {
     constructor(props) {
         super(props)
+
         this.state = {
             disabled: !this.props.authenticated,
-            active: false
+            active: this.props.initialActive
         }
         this.handleClick = this.handleClick.bind(this)
     }
     
-    componentWillMount() {
-                    
-        const user = localStorage.getItem('currentuser')
-        if(this.props.attendees.indexOf(user) !== -1){
-            this.setState({active: true})
-        } else (
-            this.setState({active: false})
-        )
-        
-    }
-    
     handleClick() {
-        this.setState({active: !this.state.active}, () => {
-            if(this.state.active) {
-                this.props.addUserToVenue(this.props.venueId)
-            } else {
-                this.props.removeUserFromVenue(this.props.venueId)
-            }
-        })
 
-        this.props.fetchAllVenues()
+        if(this.state.active) {
+            this.props.removeUserFromVenue(this.props.venueId)
+
+        } else {
+            this.props.addUserToVenue(this.props.venueId)  
+        }
+        this.setState({active: !this.state.active})
     }
     
-    render() {  
-        const disabled = this.state.disabled ? ' disabled' : ''
+    render() {
+        const disabled = this.state.disabled || this.props.isPending ? ' disabled' : ''
+
+        const btnClass = classnames({
+            'btn': true,
+            'btn-primary': true,
+            'active': this.state.active
+        })
         return (
-            <button onClick={this.handleClick} disabled={disabled}>Going</button> 
+            <button
+            type="button"
+            data-toggle="button"
+            aria-pressed={this.state.active}
+            className={btnClass}
+            onClick={this.handleClick}
+            disabled={disabled}>Going</button> 
         )
     }
 }
 
 function mapStateToProps(state) {
-    return { allVenues: state.allVenues.data }    
+    return {
+        allVenues: state.venues.data,
+        isPending: state.user.isPending
+    }    
 }
 
 Button.propTypes = {

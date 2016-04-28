@@ -9,15 +9,13 @@ class VenuesList extends Component {
         super(props)
         this.renderVenue = this.renderVenue.bind(this)
     }
+    
     renderVenue(venueData) {
         
-        const venueObj  = _.find(this.props.allVenues, {venue: venueData.venue.id})
-        const attendees = venueObj ? venueObj.going : []
         return (
             <VenueItemContainer
             key={venueData.venue.id}
-            venueData={venueData}
-            attendees={attendees} />
+            venueData={venueData} />
         )
     }
     
@@ -25,7 +23,7 @@ class VenuesList extends Component {
         return (
             <div>
             {
-                this.props.venues.isPending
+                this.props.isFetchingVenues
                 ? 'Loading'
                 : this.props.venues.map((venue) => this.renderVenue(venue))
             }
@@ -35,7 +33,11 @@ class VenuesList extends Component {
 }
 
 function mapStateToProps(state) {
-    return { venues: state.venues, message: state.auth.message, allVenues: state.allVenues.data }
+    return {
+        isFetchingVenues: state.venues.isPending,
+        venues: state.venues.items,
+        message: state.auth.message
+    }
 }
 
 export default connect(mapStateToProps, actions)(VenuesList)

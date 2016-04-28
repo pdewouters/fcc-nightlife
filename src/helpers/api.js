@@ -52,3 +52,9 @@ export function postRemoveUserFromVenue(venueId) {
         headers: {authorization: localStorage.getItem('token')}
     })    
 }
+
+export function getVenuesAttendees(venueIds) {
+    return axios.get(`${ROOT_URL}/venues/ids/${venueIds.join(',')}`, {
+        headers: { authorization: localStorage.getItem('token') }
+    })
+}
