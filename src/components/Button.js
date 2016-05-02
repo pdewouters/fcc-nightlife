@@ -26,12 +26,13 @@ class Button extends Component {
     }
     
     render() {
+       
         const disabled = this.state.disabled || this.props.isPending ? ' disabled' : ''
 
         const btnClass = classnames({
             'btn': true,
             'btn-primary': true,
-            'active': this.state.active
+            'active': this.props.initialActive
         })
         return (
             <button
@@ -40,20 +41,13 @@ class Button extends Component {
             aria-pressed={this.state.active}
             className={btnClass}
             onClick={this.handleClick}
-            disabled={disabled}>Going</button> 
+            disabled={disabled}>Going</button>
         )
     }
-}
-
-function mapStateToProps(state) {
-    return {
-        allVenues: state.venues.data,
-        isPending: state.user.isPending
-    }    
 }
 
 Button.propTypes = {
     authenticated: PropTypes.bool.isRequired,
 }
 
-export default connect(mapStateToProps, actions)(Button)
+export default connect(null, actions)(Button)

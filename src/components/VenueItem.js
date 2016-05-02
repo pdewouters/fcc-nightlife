@@ -5,7 +5,7 @@ const VenueItem = (props) => {
         const photoObj = props.venueData.venue.featuredPhotos ? props.venueData.venue.featuredPhotos.items[0] : ''
         const photoSrc = photoObj ? `${photoObj.prefix}128x128${photoObj.suffix}` : ''
         const user = localStorage.getItem('currentuser')
-        const isAttending = props.attendees.indexOf(user) !== -1
+        let isAttending = props.attendees.indexOf(user) !== -1
         return(
             <div className="media">
                 <a className="media-left" href="#">
