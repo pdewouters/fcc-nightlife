@@ -1,9 +1,12 @@
 {
   "name": "fcc-nightlife",
   "version": "1.0.0",
+  "engines": {
+    "node": "6.0.0",
+    "npm": "3.8.6"
+  },
   "description": "Freecodecamp nightlife app",
   "main": "index.js",
-  "repository": "git@github.com:StephenGrider/ReduxSimpleStarter.git",
   "scripts": {
     "dist": "webpack --config webpack-production.config.js -p",
     "postinstall": "npm run dist",
