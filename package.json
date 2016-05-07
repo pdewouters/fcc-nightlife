@@ -8,7 +8,7 @@
   "description": "Freecodecamp nightlife app",
   "main": "index.js",
   "scripts": {
-    "dist": "webpack --config webpack-production.config.js -p",
+    "dist": "node ./node_modules/.bin/webpack --config webpack-production.config.js -p",
     "postinstall": "npm run dist",
     "dev": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js"
   },
