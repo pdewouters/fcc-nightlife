@@ -11,7 +11,7 @@ export function getVenues(city){
     })
 }
 
-const ROOT_URL = 'http://localhost:3090'
+const ROOT_URL = 'https://desolate-sands-18674.herokuapp.com'
 
 export function postSignin(creds) {
     const { email, password } = creds
