@@ -1,1 +1,0 @@
-worker: node bundle.js
