@@ -17,7 +17,6 @@ module.exports = {
   devtool: 'eval',
 
   entry: [
-    'webpack-hot-middleware/client',
     './src/index'
   ],
 
@@ -28,7 +27,6 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     HTMLWebpackPluginConfig
   ],

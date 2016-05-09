@@ -18,7 +18,7 @@ class SearchBarContainer extends Component {
     onFormSubmit(event){
         event.preventDefault()
         
-        this.props.fetchVenues(this.state.term)
+        this.props.fetchVenues(this.state.term, this.props.authenticated)
         
         this.setState({term: ''})
     }
@@ -38,6 +38,12 @@ class SearchBarContainer extends Component {
             </form>
         )
     }
+}
+
+const mapStateToProps = (state) => {
+    return {
+        authenticated: state.auth.authenticated
+    }    
 }
 
 // null bc not interested in state

@@ -23,7 +23,7 @@ import {
     FETCH_VENUES_ATTENDEES
 } from './types'
 
-export const fetchVenues = (city) => {
+export const fetchVenues = (city, authenticated) => {
     return (dispatch, getState) => {
         return dispatch({
             type: FETCH_VENUES,
@@ -32,6 +32,7 @@ export const fetchVenues = (city) => {
             }
         }).then(
             response => {
+                if(!authenticated) {return}
                 const venueIds = response.value.data.response.groups[0].items.map((item) => {
                     return item.venue.id
                 })
