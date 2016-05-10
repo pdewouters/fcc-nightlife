@@ -3,6 +3,9 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router'
 
 class Header extends Component {
+    constructor(props){
+        super(props)
+    }
     renderLinks() {
         if(this.props.authenticated) {
             return <li className="nav-item">
@@ -32,10 +35,15 @@ class Header extends Component {
     }
 }
 
+Header.propTypes = {
+    authenticated: PropTypes.bool.isRequired    
+}
+
 const mapStateToProps = (state) => {
-    return { 
+    return {
         authenticated: state.auth.authenticated
     }    
 }
 
+// null bc not interested in state
 export default connect(mapStateToProps)(Header)

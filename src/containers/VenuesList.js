@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import VenueItemContainer from './VenueItemContainer'
 import * as actions from '../actions'
-import _ from 'lodash'
 
 class VenuesList extends Component {
     constructor(props) {

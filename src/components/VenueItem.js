@@ -24,7 +24,7 @@ const VenueItem = (props) => {
                     <p>Attendees: {props.attendees ? props.attendees.length : 0}</p>
                 </div>
             </div>   
-	    )
+        )
 
 }
 

@@ -19,7 +19,7 @@ import reducers from './reducers';
 const store = createStore(
   combineReducers({
     ...reducers,
-    routing: routerReducer,
+    routing: routerReducer
   }), {},
   compose(
     applyMiddleware(promiseMiddleware(),reduxThunk),

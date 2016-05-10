@@ -9,7 +9,7 @@ class Home extends React.Component {
                 <SearchBarContainer />
                 <VenuesList />
             </div>
-	    )
+        )
     }
 }
 export default Home

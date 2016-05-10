@@ -1,7 +1,7 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import VenueItem from '../components/VenueItem'
-
+import _ from 'lodash'
 class VenueItemContainer extends Component {
 
     render() {

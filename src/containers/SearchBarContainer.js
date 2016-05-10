@@ -47,4 +47,4 @@ const mapStateToProps = (state) => {
 }
 
 // null bc not interested in state
-export default connect(null, actions)(SearchBarContainer)
+export default connect(mapStateToProps, actions)(SearchBarContainer)

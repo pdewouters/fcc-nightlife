@@ -9,8 +9,8 @@ class Signout extends React.Component {
     
     render(){
         return(
-	        <div>bye</div>
-	    )
+            <div>bye</div>
+        )
     }
 }
 export default connect(null, actions)(Signout)

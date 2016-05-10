@@ -47,7 +47,7 @@ class Button extends Component {
 }
 
 Button.propTypes = {
-    authenticated: PropTypes.bool.isRequired,
+    authenticated: PropTypes.bool.isRequired
 }
 
 export default connect(null, actions)(Button)

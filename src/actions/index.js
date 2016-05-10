@@ -2,9 +2,7 @@ import {
     postSignin,
     postSignup,
     getVenues,
-    getMessage,
     postAddUserToVenue,
-    getUsersForVenue,
     getAllVenues,
     postRemoveUserFromVenue,
     getVenuesAttendees
@@ -14,17 +12,15 @@ import {
     AUTH_USER,
     AUTH_ERROR,
     UNAUTH_USER,
-    FETCH_MESSAGE,
     ADD_USER,
     FETCH_VENUES,
-    GET_USERS,
     FETCH_ALL_VENUES,
     REMOVE_USER,
     FETCH_VENUES_ATTENDEES
 } from './types'
 
 export const fetchVenues = (city, authenticated) => {
-    return (dispatch, getState) => {
+    return (dispatch) => {
         return dispatch({
             type: FETCH_VENUES,
             payload: {
@@ -95,14 +91,14 @@ export function signupUser({ email, password }) {
 // returns new array of users for venue 
 export function addUserToVenue(venueId) {
 
-    return (dispatch, getState) => {
+    return (dispatch) => {
         return dispatch({
             type: ADD_USER,
             payload: {
                 promise: postAddUserToVenue(venueId)
             }
         }).then(
-            response => {
+            () => {
                 dispatch(fetchVenuesAttendees([venueId]))
             }
         )
@@ -120,14 +116,14 @@ export function fetchAllVenues() {
 
 export function removeUserFromVenue(venueId) {
     
-    return (dispatch, getState) => {
+    return (dispatch) => {
         return dispatch({
             type: REMOVE_USER,
             payload: {
                 promise: postRemoveUserFromVenue(venueId)
             }
         }).then(
-            response => {
+            () => {
                 dispatch(fetchVenuesAttendees([venueId]))
             }
         )

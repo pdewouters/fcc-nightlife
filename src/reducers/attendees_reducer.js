@@ -5,13 +5,14 @@ export default function(state = {
     isFulfilled: false,
     items: []
 }, action) {
+    let newItems = []
     switch(action.type) {
         case `${FETCH_VENUES_ATTENDEES}_PENDING`:
             return Object.assign({}, state, {
                 isFulfilled: false
             })
         case `${FETCH_VENUES_ATTENDEES}_FULFILLED`:
-            let newItems = action.payload.data
+            newItems = action.payload.data
             state.items.map((item) => {
                 if(!_.find(newItems, {venue: item.venue})){
                     newItems.push(item)
