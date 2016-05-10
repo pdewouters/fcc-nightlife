@@ -1,18 +1,29 @@
-const Server = require('./server.js')
-const port = (process.env.PORT || 8080)
-const app = Server.app()
-
+var webpack = require('webpack');
+var webpackDevMiddleware = require('webpack-dev-middleware');
+var webpackHotMiddleware = require('webpack-hot-middleware');
+var config = ''
 if (process.env.NODE_ENV !== 'production') {
-  const webpack = require('webpack')
-  const webpackDevMiddleware = require('webpack-dev-middleware')
-  const config = require('./webpack.dev.config.js')
-  const compiler = webpack(config)
-
-  app.use(webpackDevMiddleware(compiler, {
-    noInfo: true,
-    publicPath: config.output.publicPath
-  }))
+  config = require('./webpack.dev.config');
+} else {
+  config = require('./webpack.prod.config');
 }
 
-app.listen(port)
-console.log(`Listening at http://localhost:${port}`)
+
+var app = new require('express')();
+var port = 4002;
+
+var compiler = webpack(config);
+app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
+app.use(webpackHotMiddleware(compiler));
+
+app.get("/", function(req, res) {
+  res.sendFile(__dirname + '/public/index.html');
+});
+
+app.listen(port, function(error) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.info("==> 🌎  Listening on port %s. Open up http://localhost:%s/ in your browser.", port, port);
+  }
+});

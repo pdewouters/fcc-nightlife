@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
-import { routerReducer, syncHistoryWithStore } from 'react-router-redux'
+import { syncHistoryWithStore } from 'react-router-redux'
 import reduxThunk from 'redux-thunk'
 import { AUTH_USER } from './actions/types'
 
@@ -17,10 +17,8 @@ import Signup from './components/auth/Signup'
 import reducers from './reducers';
 
 const store = createStore(
-  combineReducers({
-    ...reducers,
-    routing: routerReducer
-  }), {},
+  reducers,
+  {},
   compose(
     applyMiddleware(promiseMiddleware(),reduxThunk),
     window.devToolsExtension ? window.devToolsExtension() : (f) => f
