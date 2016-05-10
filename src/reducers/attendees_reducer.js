@@ -2,13 +2,13 @@ import { FETCH_VENUES_ATTENDEES } from '../actions/types'
 import _ from 'lodash'
 
 export default function(state = {
-    isPending: false,
+    isFulfilled: false,
     items: []
 }, action) {
     switch(action.type) {
         case `${FETCH_VENUES_ATTENDEES}_PENDING`:
             return Object.assign({}, state, {
-                isPending: true
+                isFulfilled: false
             })
         case `${FETCH_VENUES_ATTENDEES}_FULFILLED`:
             let newItems = action.payload.data
@@ -19,7 +19,7 @@ export default function(state = {
             })
 
             return Object.assign({}, state, {
-                isPending: false,
+                isFulfilled: true,
                 items: newItems
             })
     }

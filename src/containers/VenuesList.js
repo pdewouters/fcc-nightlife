@@ -32,9 +32,9 @@ class VenuesList extends Component {
     }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state) { console.log('state:',state)
     return {
-        isFetchingVenues: state.venues.isPending,
+        isFetchingVenues: !state.venues.isFulfilled,
         venues: state.venues.items,
         message: state.auth.message
     }

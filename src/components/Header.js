@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 
 class Header extends Component {
     renderLinks() {
-        if(this.props.isAuthenticated) {
+        if(this.props.authenticated) {
             return <li className="nav-item">
                 <Link className="nav-link" to="/signout">Sign Out</Link>
             </li>
@@ -32,8 +32,10 @@ class Header extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return { isAuthenticated: state.auth.authenticated }
+const mapStateToProps = (state) => {
+    return { 
+        authenticated: state.auth.authenticated
+    }    
 }
 
 export default connect(mapStateToProps)(Header)

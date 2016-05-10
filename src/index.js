@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import { routerReducer, syncHistoryWithStore } from 'react-router-redux'
 import reduxThunk from 'redux-thunk'
 import { AUTH_USER } from './actions/types'
 
@@ -15,8 +16,18 @@ import Signout from './components/auth/Signout'
 import Signup from './components/auth/Signup'
 import reducers from './reducers';
 
-const createStoreWithMiddleware = applyMiddleware(promiseMiddleware(), reduxThunk)(createStore);
-const store = createStoreWithMiddleware(reducers)
+const store = createStore(
+  combineReducers({
+    ...reducers,
+    routing: routerReducer,
+  }), {},
+  compose(
+    applyMiddleware(promiseMiddleware(),reduxThunk),
+    window.devToolsExtension ? window.devToolsExtension() : (f) => f
+  )
+)
+
+const history = syncHistoryWithStore(browserHistory, store)
 
 const token = localStorage.getItem('token')
 
@@ -26,7 +37,7 @@ if (token) {
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={browserHistory}>
+    <Router history={history}>
       <Route path="/" component={App}>
         <IndexRoute component={Home} />
         <Route path="signin" component={Signin} />

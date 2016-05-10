@@ -27,7 +27,7 @@ class Button extends Component {
     
     render() {
        
-        const disabled = this.state.disabled || this.props.isPending ? ' disabled' : ''
+        const disabled = this.state.disabled || ! this.props.isFulfilled ? ' disabled' : ''
 
         const btnClass = classnames({
             'btn': true,
