@@ -1,29 +1,20 @@
-var webpack = require('webpack');
-var webpackDevMiddleware = require('webpack-dev-middleware');
-var webpackHotMiddleware = require('webpack-hot-middleware');
-var config = ''
+const Server = require('./server.js')
+const port = (process.env.PORT || 8080)
+const app = Server.app()
+
 if (process.env.NODE_ENV !== 'production') {
-  config = require('./webpack.dev.config');
-} else {
-  config = require('./webpack.prod.config');
+  const webpack = require('webpack')
+  const webpackDevMiddleware = require('webpack-dev-middleware')
+  const webpackHotMiddleware = require('webpack-hot-middleware')
+  const config = require('../webpack.dev.config.js')
+  const compiler = webpack(config)
+
+  app.use(webpackHotMiddleware(compiler))
+  app.use(webpackDevMiddleware(compiler, {
+    noInfo: true,
+    publicPath: config.output.publicPath
+  }))
 }
 
-
-var app = new require('express')();
-var port = 4002;
-
-var compiler = webpack(config);
-app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
-app.use(webpackHotMiddleware(compiler));
-
-app.get("/", function(req, res) {
-  res.sendFile(__dirname + '/public/index.html');
-});
-
-app.listen(port, function(error) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.info("==> 🌎  Listening on port %s. Open up http://localhost:%s/ in your browser.", port, port);
-  }
-});
+app.listen(port)
+console.log(`Listening at http://localhost:${port}`)
